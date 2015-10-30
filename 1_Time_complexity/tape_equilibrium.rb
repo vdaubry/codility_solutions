@@ -7,7 +7,7 @@
 ######
 class Array
   def sum
-    self.reduce(:+)
+    reduce(:+)
   end
 end
 
@@ -28,16 +28,16 @@ end
 def minimal_difference(array)
   first_part_sum = first_part(array, 1).sum
   second_part_sum = second_part(array, 1).sum
-  result = (first_part_sum - second_part_sum).abs
+  min_difference = (first_part_sum - second_part_sum).abs
   
   array.each_with_index do |value, index|
     next if index < 1 || index == array.count - 1
     first_part_sum += value
     second_part_sum -= value
     current_difference = (first_part_sum - second_part_sum).abs
-    result = current_difference if current_difference < result
+    min_difference = [current_difference, min_difference].min
   end
-  result
+  min_difference
 end
 
 def solution(a)
