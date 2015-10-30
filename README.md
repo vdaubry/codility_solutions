@@ -4,7 +4,7 @@ Solutions to codility training in ruby
 ## Tools :
 
 * Minitest : to test edge cases
-* minitest/benchmark : to test algorithm time complexity
+* Minitest/benchmark : to test algorithm time complexity
 
 ## Generate solution template :
 
