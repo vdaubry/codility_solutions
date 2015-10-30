@@ -5,18 +5,17 @@
 # Solution
 #
 ######
+require 'set'
 
 def solution(destination, array)
-  path_array = Array.new(destination, -1)
+  already_seen = Set.new
   
   array.each_with_index do |value, index|
-    path_array[value-1]=index
-    #Stop if path is complete
-    break if path_array.find_index(-1).nil?
+    already_seen.add(value)
+    return index if already_seen.size == destination
   end
   
-  return -1 unless path_array.find_index(-1).nil?
-  return path_array.max
+  -1
 end
 
 
