@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-require 'timeout'
 
 #######
 #
@@ -12,6 +11,12 @@ class Array
   end
 end
 
+
+#######
+#
+# Solution
+#
+######
 def first_part(array, partition_index)
   array[0..partition_index-1]
 end
@@ -40,28 +45,71 @@ def solution(a)
 end
 
 
-array = [3, 1, 2, 4, 3]
-result = first_part(array, 1)
-raise "invalid result : #{result}" unless result == [3]
 
-result = second_part(array, 1)
-raise "invalid result : #{result}" unless result == [1, 2, 4, 3]
+#######
+#
+# Specs
+#
+######
+require 'minitest/autorun'
+
+class AlgoTests < MiniTest::Unit::TestCase
+  describe "small array with positive values" do
+    before do
+      @array = [3, 1, 2, 4, 3]
+    end
+    
+    describe "first_part" do
+      it { assert_equal first_part(@array, 1), [3] }
+    end
+    
+    describe "second_part" do
+      it { assert_equal second_part(@array, 1), [1, 2, 4, 3] }
+    end
+    
+    describe "minimal_difference" do
+      it { assert_equal minimal_difference(@array), 1 }
+    end
+  end
+  
+  describe "small array with negative values" do
+    before do
+      @array = [-3, -1, -2, -4, -3]
+    end
+    
+    describe "minimal_difference" do
+      it { assert_equal minimal_difference(@array), 1 }
+    end
+  end
+  
+  describe "small array with positive and negative values" do
+    before do
+      @array = [-1000, 1000]
+    end
+    
+    describe "minimal_difference" do
+      it { assert_equal minimal_difference(@array), 2000 }
+    end
+  end
+end
 
 
-result = minimal_difference(array)
-raise "invalid result : #{result}" unless result == 1
-
-array = [-3, -1, -2, -4, -3]
-result = minimal_difference(array)
-raise "invalid result : #{result}" unless result == 1
-
-array = [-1000, 1000]
-result = minimal_difference(array)
-raise "invalid result : #{result}" unless result == 2000
-
-array = [rand(100)]*100000
-Timeout::timeout(1) {
-  minimal_difference(array)
-}
-
-puts "Good !"
+#######
+#
+# Benchmark
+#
+######
+require 'minitest/benchmark'
+class PerformanceBench < MiniTest::Benchmark    
+    def self.bench_range 
+      Minitest::Benchmark.bench_exp(10, 100_000)
+    end
+    
+    def bench_linear_performance
+      
+      assert_performance_linear 0.99 do |input|
+        array = [rand(-100..100)]*input
+        minimal_difference(array)
+      end
+    end
+end
