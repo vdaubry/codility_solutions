@@ -7,7 +7,7 @@
 #
 ######
 
-def solution(origin, destination, step)
+def solution()
   
 end
 
@@ -21,12 +21,12 @@ require 'minitest/autorun'
 require 'byebug'
 
 class AlgoTests < MiniTest::Unit::TestCase
-  describe "small number" do
+  describe "context" do
     before do
       
     end
     
-    describe "it returns minimum number of steps" do
+    describe "method" do
       it { assert false }
     end
   end
@@ -46,7 +46,7 @@ class PerformanceBench < MiniTest::Benchmark
     
     def bench_linear_performance
       assert_performance_constant 0.99 do |input|
-        #generate random dataset, ex: array = [rand(-100..100)]*input
+        #generate random dataset, ex: input.times {|val| array << rand(val)}
         #call method to test
       end
     end

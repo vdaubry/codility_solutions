@@ -108,7 +108,8 @@ class PerformanceBench < MiniTest::Benchmark
     def bench_linear_performance
       
       assert_performance_linear 0.99 do |input|
-        array = [rand(-100..100)]*input
+        array = []
+        input.times {|val| array << rand(val)}
         minimal_difference(array)
       end
     end
