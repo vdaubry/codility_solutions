@@ -8,18 +8,20 @@
 
 def solution(number_of_counter, array)
   counters = Array.new(number_of_counter, 0)
-  current_max_counter = 0
+  max = 0
+  min = 0
   
   array.each do |val|
     if val >= 1 && val <= number_of_counter
-      counters[val-1] += 1
-      current_max_counter = [current_max_counter, counters[val-1]].max
+      current = counters[val-1]
+      counters[val-1] = [min+1, current+1].max
+      max = [max, counters[val-1]].max
     elsif val == (number_of_counter+1)
-      counters = Array.new(number_of_counter, current_max_counter)
+      min = max
     end
   end
-  
-  counters
+
+  counters.map! {|val| [val, min].max }
 end
 
 
@@ -54,7 +56,7 @@ class PerformanceBench < MiniTest::Benchmark
  end
  
  def bench_linear_performance
-   assert_performance_linear 0.99 do |input|
+   assert_performance_linear 0.97 do |input|
       array = []
       input.times {|val| array << rand(val)}
       number_of_counter = rand(100_000)
