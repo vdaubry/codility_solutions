@@ -17,7 +17,8 @@ def solution(a)
     already_seen.add(val)
     max = [max, val].max
   end
-  return 1 if already_seen.size == max && already_seen.size == a.size
+  return 1 if already_seen.size == max &&
+               already_seen.size == a.size
   
   0
 end
