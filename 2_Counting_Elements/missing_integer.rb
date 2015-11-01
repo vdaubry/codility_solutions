@@ -6,10 +6,10 @@
 #
 ######
 
-def min_in_interval(start, stop, array)
+def min_in_interval(start, stop, already_seen)
   (start..stop).each do |val|
     next if val <= 0
-    return val unless array.include?(val)
+    return val unless already_seen[val]
   end
   nil
 end
@@ -17,7 +17,12 @@ end
 def solution(array)
   return 1 if array.empty?
 
-  result = min_in_interval(1 , array.max+1, array)
+  already_seen = {}
+  array.each do |val|
+    already_seen[val] = true
+  end
+
+  result = min_in_interval(1 , array.max+1, already_seen)
   return result || 1
 end
 
@@ -48,17 +53,17 @@ end
 # Benchmark
 #
 ######
-# require 'minitest/benchmark'
-# class PerformanceBench < MiniTest::Benchmark    
-#   def self.bench_range 
-#     Minitest::Benchmark.bench_exp(1, 100_000)
-#   end
+require 'minitest/benchmark'
+class PerformanceBench < MiniTest::Benchmark    
+  def self.bench_range 
+    Minitest::Benchmark.bench_exp(1, 100_000)
+  end
   
-#   def bench_linear_performance
-#     assert_performance_linear 0.99 do |input|
-#       array = []
-#       input.times {|val| array << rand(-2147483648..2147483647)}
-#       solution(array)
-#     end
-#   end
-# end
+  def bench_linear_performance
+    assert_performance_linear 0.99 do |input|
+      array = []
+      input.times {|val| array << rand(-2147483648..2147483647)}
+      solution(array)
+    end
+  end
+end
