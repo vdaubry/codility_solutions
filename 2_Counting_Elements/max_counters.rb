@@ -8,13 +8,14 @@
 
 def solution(number_of_counter, array)
   counters = Array.new(number_of_counter, 0)
+  current_max_counter = 0
   
   array.each do |val|
     if val >= 1 && val <= number_of_counter
       counters[val-1] += 1
+      current_max_counter = [current_max_counter, counters[val-1]].max
     elsif val == (number_of_counter+1)
-      max_val = counters.max
-      counters = Array.new(number_of_counter, max_val)
+      counters = Array.new(number_of_counter, current_max_counter)
     end
   end
   
