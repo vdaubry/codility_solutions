@@ -7,12 +7,15 @@
 ######
 
 def solution(a, b, k)
-  divisible = 0
-  
-  (a..b).each do |val|
-    divisible +=1 if val % k == 0
+  if a == b
+    b % k == 0 ? 1 : 0
+  elsif k > b
+    0
+  elsif (b-a) == k
+    ((b - a) / k)  
+  else
+    ((b - a) / k) + 1
   end
-  divisible
 end
 
 
@@ -29,9 +32,17 @@ class AlgoTests < MiniTest::Unit::TestCase
     it { assert_equal 3, solution(6, 11, 2) }
     it { assert_equal 5, solution(12, 20, 2) }
     it { assert_equal 2, solution(12, 20, 5) }
+    it { assert_equal 8, solution(21, 60, 5) }
     it { assert_equal 1, solution(0, 0, 1) }
     it { assert_equal 0, solution(6, 11, 12) }
     it { assert_equal 1, solution(12, 12, 12) }
+    it { assert_equal 0, solution(1, 1, 11) }
+    it { assert_equal 0, solution(0, 1, 11) }
+    it { assert_equal 1, solution(10, 10, 5) }
+    it { assert_equal 0, solution(10, 10, 7) }
+    it { assert_equal 0, solution(10, 10, 8) }
+    it { assert_equal 0, solution(10, 10, 20) }
+    it { assert_equal 1, solution(11, 13, 2) }
   end
 end
 
