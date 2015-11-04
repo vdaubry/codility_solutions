@@ -1,30 +1,26 @@
 #!/usr/bin/env ruby
 
-class Array
-  def sum
-    self.reduce(:+)
-  end
-  
-  def avg
-    return 0 unless size != 0
-    sum.to_f / size
-  end
-end
-
 def solution(array)
-  slices = {}
+  min_average = 10_000
+  min_index = 100_000
   
   array.each_with_index do |val1, index1|
+    previous_sum = val1
     array[(index1+1)..-1].each_with_index do |val2, index2|
       index2 = index1+index2+1
-      slices[index1..index2] = array[index1..index2].avg
+      
+      previous_sum += val2
+      
+      avg = previous_sum.to_f/(index2-index1+1)
+      
+      if avg < min_average
+        min_average = avg
+        min_index = index1
+      end
     end
   end
   
-  #byebug
-  
-  min_average = slices.values.min
-  slices.select {|key, value| value == min_average}.keys.first.first
+  min_index
 end
 
 
