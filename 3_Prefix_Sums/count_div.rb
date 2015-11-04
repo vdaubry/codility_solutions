@@ -52,16 +52,15 @@ end
 # Benchmark
 #
 ######
-#require 'minitest/benchmark'
-#class PerformanceBench < MiniTest::Benchmark    
-#  def self.bench_range 
-#    Minitest::Benchmark.bench_exp(10, 100_000)
-#  end
-#  
-#  def bench_linear_performance
-#    assert_performance_constant 0.99 do |input|
-#      #generate random dataset, ex: input.times {|val| array << rand(val)}
-#      #call method to test
-#    end
-#  end
-#end
+require 'minitest/benchmark'
+class PerformanceBench < MiniTest::Benchmark    
+ def self.bench_range 
+   Minitest::Benchmark.bench_exp(1, 2_000_000_000)
+ end
+ 
+ def bench_linear_performance
+   assert_performance_constant 0.99 do |input|
+     solution(input, input*2, (input-rand(input)).abs)
+   end
+ end
+end
