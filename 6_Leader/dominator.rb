@@ -1,20 +1,9 @@
 #!/usr/bin/env ruby
 
 def solution(array)
-  element_occurences = Hash.new {|h, k| h[k] = 0}
-  dominator = nil
-  current_max = 0
-
-  array.each do |val|
-    element_occurences[val] += 1
-    if dominator.nil? || current_max < element_occurences[val]
-      dominator = val
-      current_max = element_occurences[val]
-    end
-  end
-
-  return -1 if dominator.nil? || (element_occurences[dominator] <= (array.size/2.0))
-
+  dominator = array.max_by {|val| array.count(val) }
+  
+  return -1 if dominator.nil? || (array.count(dominator) <= (array.size/2.0))
   array.find_index(dominator)
 end
 
