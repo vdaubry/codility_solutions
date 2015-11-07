@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 def solution(array)
-  array.sort.last(3).reduce(:*)
+  array.uniq.count
 end
 
 
@@ -15,14 +15,11 @@ require 'byebug'
 
 class AlgoTests < MiniTest::Unit::TestCase
   describe "method" do
-    it { assert_equal 60, solution([-3, 1, 2, -2, 5, 6]) }
-    it { assert_equal 24, solution([3, 1, 2, 4]) }
-    it { assert_equal 60, solution([3, 1, 2, 4, 5]) }
-    it { assert_equal 60, solution([3, 2, 4, 5]) }
-    it { assert_equal 120, solution([3, 2, 4, 5, 6]) }
-    it { assert_equal -24, solution([-3, -2, -4, -5, -6]) }
-    it { assert_equal 6, solution([1, 2, 3]) }
+    it { assert_equal 3, solution([2, 1, 1, 2, 3, 1]) }
+    it { assert_equal 3, solution([2, 1, 1, 2, 3, 1, 1, 1]) }
+    it { assert_equal 2, solution([2, 1, 1, 2]) }
     it { assert_equal 1, solution([1, 1, 1]) }
+    it { assert_equal 1, solution([1]) }
   end
 end
 
