@@ -9,7 +9,6 @@ def solution(array)
     array.each do |val2, index2|
       count += 1 if val1 % val2 != 0
     end
-
     result << count
   end
 
