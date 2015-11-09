@@ -9,11 +9,12 @@ end
 
 
 def solution(array, current_position=0, current_count=0)
+  min_jumps = nil
+
   fibonacci(array.size).each do |fib|
     puts "current_position = #{current_position}" 
     if (current_position+fib) > array.size
-      byebug
-      return current_count 
+      return current_count, current_position+fib 
     end
     
     next_jump = current_position+fib
@@ -22,7 +23,8 @@ def solution(array, current_position=0, current_count=0)
       current_count += 1
       puts "fib = #{fib}"
       puts "solution(array, #{current_position}, #{current_count})"
-      solution(array, current_position, current_count)
+      min_jumps, final_position = solution(array, current_position, current_count)
+      
     end
   end
 
